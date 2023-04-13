@@ -7,11 +7,9 @@ export class UserController {
 
 	constructor(
 		private readonly userService: UserService
-	) {
+	) { }
 
-	}
-
-	@Post()
+	@Post("create")
 	public async insertUser(@Body() data: CreateUserDTO) {
 		return this.userService.create(data);
 	}
