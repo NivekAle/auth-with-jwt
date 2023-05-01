@@ -27,4 +27,21 @@ export class UserService {
 		return this.prisma.users.findMany();
 	}
 
+	async ReadOne(id: number) {
+
+		await this.UserExists(id);
+
+		return this.prisma.users.findUnique({
+			where: { id }
+		});
+	}
+
+	async UserExists(id: number) {
+
+		if (!(await this.prisma.users.count({ where: { id } }))) {
+			throw new HttpException(`O Usuário com o id => ${id} não foi encontrado.`, HttpStatus.NOT_FOUND);
+		}
+
+	}
+
 }
